@@ -1,0 +1,26 @@
+{
+  "name": "notes-cli",
+  "version": "1.0.0",
+  "description": "cli app to manage and view notes",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derpynerd/notes-cli.git"
+  },
+  "keywords": [
+    "notes"
+  ],
+  "type": "module",
+  "author": "Fawaz Khan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/derpynerd/notes-cli/issues"
+  },
+  "homepage": "https://github.com/derpynerd/notes-cli#readme",
+  "dependencies": {
+    "yargs": "^17.7.2"
+  }
+}
