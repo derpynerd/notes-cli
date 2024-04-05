@@ -5,11 +5,9 @@ const notes_file_name = 'notes.json'
 
 const addNote = function(title, body) {
     const storedNotes = loadNotes()
-    const duplicateNotes = storedNotes.filter(function(note) {
-        return (note.title === title)   // if any stored note has title same as note trying to be added return true 
-    })                                  // i.e. add to duplicateNotes array 
+    const duplicateNote = storedNotes.find((note) => (note.title === title)) /* find if duplicate note title exists */
 
-    if (duplicateNotes.length === 0) { // if duplicateNotes array is empty then no duplicates found
+    if (duplicateNote === undefined) { /* no duplicate present */
         storedNotes.push({
             title: title,
             body: body
@@ -23,11 +21,9 @@ const addNote = function(title, body) {
 
 const removeNote = function(title) {
     var storedNotes = loadNotes()
-    const exists = storedNotes.filter(function(note) {
-        return (note.title === title)
-    })
+    const exists = storedNotes.find((note) => (note.title === title)) /* find if note with given title exists */
 
-    if (exists.length != 0) {
+    if (exists !== undefined) {
         storedNotes = storedNotes.filter((note) => (note.title !== title))  // if storedNotes.title === title then filter out field
         saveNotes(storedNotes)                                              // i.e. (remove object)
         console.log(`Note "${title}" removed successfully`)
