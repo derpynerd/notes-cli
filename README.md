@@ -11,7 +11,7 @@ A CLI application to manage &amp; view notes written in Javascript using Node.js
 > Running the program
 - Adding a new note is as simple as running `node app.js add --title='note_title' --body='[insert note body]'`
 - To remove an existing note, run `node app.js remove --title='note_title'`
+- To read any note, run `node app.js read --title='note_title'`
 - To list all stored notes, run `node app.js list`
-- To read any note using title name, run `node app.js read --title='note_title'`
 
 > Note that `note_title` can be anything as long as it is a string value 
