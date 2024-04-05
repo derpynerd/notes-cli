@@ -36,7 +36,7 @@ const listNotes = function() {
     const storedNotes = loadNotes()
 
     storedNotes.forEach((note) => {
-        console.log(chalk.green.bold.underline(note.title) + ' - ' + chalk.whiteBright.italic(note.body))
+        console.log(chalk.green.bold.underline(note.title))
     })
 }
 
