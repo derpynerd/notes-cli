@@ -1,5 +1,5 @@
 import yargs from "yargs";
-import { addNote, removeNote, listNotes } from './notes.js';
+import { addNote, removeNote, readNote, listNotes } from './notes.js';
 
 yargs(process.argv.slice(2))
     .command(
@@ -34,7 +34,21 @@ yargs(process.argv.slice(2))
             removeNote(argv.title)
         }
     )
-    .command('list', 'List all notes', () => {
+    .command(
+        'read', 
+        'Read a specific note using note title', 
+        {
+            title: {
+                describe: 'Note title to uniquely identify note',
+                demandOption: true,
+                type: 'string'
+            }
+        },
+        function(argv) {
+            readNote(argv.title)
+        }
+    )    
+    .command('list', 'List all note titles', () => {
         listNotes()
     })
     .parse()

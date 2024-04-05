@@ -1,7 +1,7 @@
 import fs from 'fs';
 import chalk from 'chalk';
 
-const notes_file_name = 'notes.json'
+const notes_file_name = 'notes.json' /* File name of locally stored notes can be configured here */
 
 const addNote = function(title, body) {
     const storedNotes = loadNotes()
@@ -13,9 +13,9 @@ const addNote = function(title, body) {
             body: body
         })
         saveNotes(storedNotes)
-        console.log(`Note "${title}" added successfully`)
+        console.log(chalk.green.bold(`Note "${title}" added successfully`))
     } else {
-        console.log('Duplicate title found, aborting...')
+        console.log(chalk.red.bold('Duplicate title found, aborting...'))
     }
 }
 
@@ -26,9 +26,21 @@ const removeNote = function(title) {
     if (exists !== undefined) {
         storedNotes = storedNotes.filter((note) => (note.title !== title))  // if storedNotes.title === title then filter out field
         saveNotes(storedNotes)                                              // i.e. (remove object)
-        console.log(`Note "${title}" removed successfully`)
+        console.log(chalk.green.bold(`Note "${title}" removed successfully`))
     } else {
-        console.log('Note with given title does not exist')
+        console.log(chalk.red.bold('Note with given title does not exist'))
+    }
+}
+
+const readNote = function(title) {
+    const storedNotes = loadNotes()
+    const readingNote = storedNotes.find((note) => (note.title === title)) /* find if note with given title exists */
+
+    if (readingNote !== undefined) {
+        console.log(chalk.blue.bold.underline(readingNote.title) + ' - ' + chalk.whiteBright.italic(readingNote.body))
+    }
+    else {
+        console.log(chalk.red.bold('Note with given title does not exist'))
     }
 }
 
@@ -36,7 +48,7 @@ const listNotes = function() {
     const storedNotes = loadNotes()
 
     storedNotes.forEach((note) => {
-        console.log(chalk.green.bold.underline(note.title))
+        console.log(chalk.yellowBright.bold.underline(note.title))
     })
 }
 
@@ -57,5 +69,5 @@ const loadNotes = function() {
     }
 }
 
-
-export { addNote, removeNote, listNotes }
+/* Exported functions */
+export { addNote, removeNote, readNote, listNotes }
