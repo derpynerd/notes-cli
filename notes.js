@@ -1,6 +1,9 @@
 import fs from 'fs';
+import chalk from 'chalk';
 
-const addNote = function(title, category) {
+const notes_file_name = 'notes.json'
+
+const addNote = function(title, body) {
     const storedNotes = loadNotes()
     const duplicateNotes = storedNotes.filter(function(note) {
         return (note.title === title)   // if any stored note has title same as note trying to be added return true 
@@ -9,7 +12,7 @@ const addNote = function(title, category) {
     if (duplicateNotes.length === 0) { // if duplicateNotes array is empty then no duplicates found
         storedNotes.push({
             title: title,
-            type: category
+            body: body
         })
         saveNotes(storedNotes)
         console.log(`Note "${title}" added successfully`)
@@ -33,15 +36,23 @@ const removeNote = function(title) {
     }
 }
 
+const listNotes = function() {
+    const storedNotes = loadNotes()
+
+    storedNotes.forEach((note) => {
+        console.log(chalk.green.bold.underline(note.title) + ' - ' + chalk.whiteBright.italic(note.body))
+    })
+}
+
 /* Helper Functions */
 const saveNotes = function(notes) {
     const notesString = JSON.stringify(notes)
-    fs.writeFileSync('notes.json', notesString)
+    fs.writeFileSync(notes_file_name, notesString)
 }
 
 const loadNotes = function() {
     try {
-        const dataBuffer = fs.readFileSync('notes.json')
+        const dataBuffer = fs.readFileSync(notes_file_name)
         const dataString = dataBuffer.toString()
         const dataJson = JSON.parse(dataString)
         return dataJson
@@ -51,4 +62,4 @@ const loadNotes = function() {
 }
 
 
-export { addNote, removeNote }
+export { addNote, removeNote, listNotes }

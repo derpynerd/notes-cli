@@ -1,6 +1,5 @@
 import yargs from "yargs";
-import fs from "fs";
-import { addNote, removeNote } from './notes.js';
+import { addNote, removeNote, listNotes } from './notes.js';
 
 yargs(process.argv.slice(2))
     .command(
@@ -12,13 +11,13 @@ yargs(process.argv.slice(2))
                 demandOption: true,
                 type: 'string'
             },
-            category: {
-                describe: 'Note or Checklist',
-                type: 'string' // by default -> note
+            body: {
+                describe: 'Note data',
+                type: 'string' 
             }
         },
         function(argv) { //handler
-            addNote(argv.title, (argv.catgory === null ? 'Note' : argv.category))
+            addNote(argv.title, argv.body)
         }
     )
     .command(
@@ -35,7 +34,7 @@ yargs(process.argv.slice(2))
             removeNote(argv.title)
         }
     )
-    .command('view', 'View notes', () => {
-        viewNotes()
+    .command('list', 'List all notes', () => {
+        listNotes()
     })
     .parse()
